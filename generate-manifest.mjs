@@ -1,32 +1,24 @@
+// generate-manifest.mjs
 import { readdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
-/**
- * Generates a manifest.json file listing all .md files in a directory.
- * @param {string} dirPath - Absolute or relative path to the content directory
- */
 async function generateManifest(dirPath) {
   try {
     const files = await readdir(dirPath);
-    const mdFiles = files
-      .filter(file => file.endsWith('.md'))
-      .sort(); // Optional: sort alphabetically
-
+    const mdFiles = files.filter(f => f.endsWith('.md')).sort();
     const manifestPath = join(dirPath, 'manifest.json');
     await writeFile(manifestPath, JSON.stringify(mdFiles, null, 2), 'utf8');
-    console.log(`✅ Manifest generated: ${manifestPath} with ${mdFiles.length} files`);
+    console.log(`✅ Manifest generated: ${manifestPath}`);
   } catch (err) {
     if (err.code === 'ENOENT') {
-      console.warn(`⚠️  Skipped missing directory: ${dirPath}`);
+      console.warn(`⚠️  Directory not found: ${dirPath}`);
     } else {
-      console.error(`❌ Failed to generate manifest for ${dirPath}:`, err.message);
-      throw err;
+      console.error(`❌ Error in ${dirPath}:`, err.message);
+      process.exit(1);
     }
   }
 }
 
-// Generate manifests for projects and teams inside public/
+// Generate manifests inside public/
 await generateManifest('./public/content/projects');
 await generateManifest('./public/content/teams');
-
-console.log('✨ Build completed successfully.');
