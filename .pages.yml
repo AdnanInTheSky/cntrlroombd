@@ -1,0 +1,58 @@
+# .pages.yml — Pages CMS Configuration
+media:
+  input: content/images
+  output: /content/images
+  extensions: [jpg, jpeg, png, webp, gif]
+
+content:
+  # Project Collection
+  - name: project
+    label: Projects
+    type: collection
+    path: content/projects
+    format: yaml-frontmatter
+    fields:
+      - name: title
+        type: string
+        required: true
+      - name: date
+        type: date
+        required: true
+      - name: author
+        type: string
+        required: false
+      - name: tags
+        type: string
+        list: true
+        required: false
+      - name: body
+        type: rich-text
+        required: true
+
+  # Team Members Collection
+  - name: team
+    label: Team Members
+    type: collection
+    path: content/teams
+    format: yaml-frontmatter
+    fields:
+      - name: title
+        type: string
+        label: Full Name
+        required: true
+      - name: role
+        type: string
+        label: Role / Title
+        required: true
+      - name: image
+        type: image
+        required: false
+        description: "Photo (optional). Must be in content/images/"
+      - name: tags
+        type: string
+        list: true
+        required: false
+      - name: body
+        type: rich-text
+        label: Bio
+        required: true
