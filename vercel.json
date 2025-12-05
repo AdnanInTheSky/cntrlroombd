@@ -1,4 +1,5 @@
 {
+  "outputDirectory": ".",
   "routes": [
     {
       "src": "/(.*)",
@@ -6,8 +7,7 @@
       "headers": {
         "X-Content-Type-Options": "nosniff",
         "X-Frame-Options": "DENY",
-        "Referrer-Policy": "strict-origin-when-cross-origin",
-        "X-XSS-Protection": "1; mode=block"
+        "Referrer-Policy": "strict-origin-when-cross-origin"
       }
     }
   ]

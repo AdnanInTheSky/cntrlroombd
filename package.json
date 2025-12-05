@@ -1,5 +1,5 @@
 {
-  "name": "cybercore-portfolio",
+  "name": "cybercore",
   "version": "1.0.0",
   "scripts": {
     "build": "node generate-manifest.mjs"
