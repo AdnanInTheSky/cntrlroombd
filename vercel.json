@@ -1,6 +1,14 @@
 {
   "outputDirectory": ".",
   "routes": [
+     
+    {
+      "src": "/((?!api|_next|.*\\.).*)",
+      "headers": {
+        "cache-control": "public, max-age=300"
+      }
+    },
+     
     {
       "src": "/(.*)",
       "dest": "/index.html",
