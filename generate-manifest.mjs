@@ -1,18 +1,13 @@
+// generate-manifest.mjs
 import { readdir, writeFile } from 'node:fs/promises';
 
-async function generateManifest(dirPath, outputFile) {
-  try {
-    const files = await readdir(dirPath);
-    const mdFiles = files
-      .filter(f => f.endsWith('.md'))
-      .sort();
-    await writeFile(outputFile, JSON.stringify(mdFiles, null, 2));
-    console.log(`✅ ${outputFile} generated with:`, mdFiles);
-  } catch (err) {
-    console.warn(`⚠️  Skipped ${dirPath}:`, err.message);
-  }
+async function generateManifest(dir) {
+  const files = await readdir(dir);
+  const mdFiles = files.filter(f => f.endsWith('.md')).sort();
+  await writeFile(`${dir}/manifest.json`, JSON.stringify(mdFiles, null, 2));
+  console.log(`✅ Manifest created in ${dir}`);
 }
 
-// Generate both manifests
-await generateManifest('./content/projects', './content/projects/manifest.json');
-await generateManifest('./content/teams', './content/teams/manifest.json');
+// Run for both project and team folders
+await generateManifest('./public/content/projects');
+await generateManifest('./public/content/teams');
